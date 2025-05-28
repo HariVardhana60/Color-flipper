@@ -1,18 +1,23 @@
-const btn = document.getElementById('btn');
-const colorText = document.querySelector('.color');
+function addTask() {
+  const taskInput = document.getElementById("taskInput");
+  const taskText = taskInput.value.trim();
 
-// Function to generate a random hex color
-function getRandomColor() {
-  const hex = '0123456789ABCDEF';
-  let color = '#';
-  for (let i = 0; i < 6; i++) {
-    color += hex[Math.floor(Math.random() * 16)];
+  if (taskText === "") {
+    alert("Please enter a task!");
+    return;
   }
-  return color;
+
+  const li = document.createElement("li");
+  li.innerHTML = `
+    ${taskText}
+    <button class="delete-btn" onclick="removeTask(this)">Delete</button>
+  `;
+
+  document.getElementById("taskList").appendChild(li);
+  taskInput.value = "";
 }
 
-btn.addEventListener('click', () => {
-  const newColor = getRandomColor();
-  document.body.style.backgroundColor = newColor;
-  colorText.textContent = newColor;
-});
+function removeTask(button) {
+  const li = button.parentElement;
+  li.remove();
+}
